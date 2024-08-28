@@ -18,15 +18,16 @@ export class UserLayoutComponent {
 
   logout(): void {
     if (confirm("Do you want to logout?")) {
-      this.httpClient.post(`${environment.baseApiUrl}/users/userLogout`, { withCredentials: true }).subscribe({
-        next: () => {
-          alert('user logged out succesfully');
-          this.router.navigate(['/']);
-        },
-        error: () => {
-          alert('Logout failed:');
-        }
-      });
+      this.httpClient.post(`${environment.baseApiUrl}/users/userLogout`, {}, { withCredentials: true })
+        .subscribe({
+          next: () => {
+            alert('User logged out successfully');
+            this.router.navigate(['/']);
+          },
+          error: () => {
+            alert('Logout failed.');
+          }
+        });
     } else {
       alert("User cancelled logout");
     }

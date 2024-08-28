@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AuthService } from '../../../auth.service';
 
 
 @Component({
@@ -16,8 +17,11 @@ import { MatDialogModule } from '@angular/material/dialog';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent{
-  router = inject(Router);
-  img:string = 'assets/1.jpg';
+  constructor(private authService: AuthService, private router: Router) {}
 
+  loginAsGuest(): void {
+    this.authService.setRole('guest'); // Set role to 'guest'
+    this.router.navigate(['/home']); // Navigate to the home page for guests
+  }
 
 }

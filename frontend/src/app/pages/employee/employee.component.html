@@ -61,7 +61,7 @@
               <th data-priority="3">Email</th>
               <th data-priority="4">Phone Number</th>
               <th data-priority="5">Job Designation</th>
-              <th>Action</th>
+              <th *ngIf="isAdmin">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -74,12 +74,12 @@
                   <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.contact}}</td>
                   <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.jobDesignation}}</td>
                 
-                  <td class="list-inline-item">
+                  <td class="list-inline-item" *ngIf="isAdmin">
                     <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
                   </td>
-                <li class="list-inline-item"  (click)="onDelete(item.id)">
+                <td class="list-inline-item"  (click)="onDelete(item.id)" *ngIf="isAdmin">
                     <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></button>
-                </li>
+                </td>
     
                </tr>
           } 

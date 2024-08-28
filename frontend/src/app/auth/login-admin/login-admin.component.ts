@@ -51,4 +51,17 @@ submit(): void {
     }
   });
 }
+
+loginAsGuest(): void {
+  // Display confirmation dialog
+  const confirmed = window.confirm('Do you really want to log in as Guest?');
+  
+  if (confirmed) {
+    this.authService.setRole('guest'); // Set role to 'guest'
+    this.router.navigate(['/home']); // Navigate to the home page for guests
+  } else {
+    // Optionally, you can show a message or perform some other action here
+    alert('Login as Guest cancelled.');
+  }
+}
 }
