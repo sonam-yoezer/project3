@@ -23,6 +23,6 @@ export const routes: Routes = [
     {path:'about', component:AboutPageComponent},
     {path: 'ad', component: AdminLayoutComponent,},
     {path:'us', component: UserLayoutComponent,},
-    {path:'nav', component:NavbarComponent},
+    {path:'nav', component:NavbarComponent,},
     // { path: '', redirectTo: '/loginGuest', pathMatch: 'full' }
 ];
