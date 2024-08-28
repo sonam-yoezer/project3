@@ -1,0 +1,24 @@
+.img{
+
+    margin-right: 200px;
+}
+
+.navbar-nav .nav-item + .nav-item {
+    margin-left: 1rem; /* Add space between items */
+  }
+  .profile-img {
+    width: 30px; /* Smaller size for the profile image */
+    height: 30px; /* Maintain aspect ratio */
+  }
+
+/* src/app/navbar/navbar.component.css */
+.bg-custom-dark {
+    background-color: #1e293b; /* Equivalent to Tailwind CSS bg-gray-800 */
+  }
+  
+  .text-white {
+    color: #ffffff;
+  }
+  
+
+

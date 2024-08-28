@@ -1,0 +1,21 @@
+/* Add this CSS to your stylesheet or within a <style> tag */
+/* .form-container {
+    width: 1200px; 
+    max-width: 100%; 
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+  } */
+
+  /* Add this CSS to your stylesheet or within a <style> tag */
+.form-container {
+    width: 500px; /* Adjust this value to the desired width */
+    max-width: 100%; /* Ensure the form fits within the parent container */
+    padding: 20px; /* Optional: Add padding for better spacing */
+    background-color: #fff; /* Optional: Add background color */
+    border-radius: 8px; /* Optional: Add border radius */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: Add shadow */
+  }
+  
+  
