@@ -2,4 +2,97 @@
 <app-admin-layout *ngIf="isAdmin"></app-admin-layout>
 <app-navbar *ngIf="isGuest"></app-navbar>
 
-<p>employee works!</p>
+<!-- <table class="table ms-3 me-3">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">User Name</th>
+        <th scope="col">CID</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Job Designation</th>
+        
+      </tr>
+
+      @for (item of employeeList; track $index) {
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.fullName}}</td>
+        <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.userName}}</td>
+        <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.CID}}</td>
+        <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.email}}</td>
+        <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.contact}}</td>
+        <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.jobDesignation}}</td>
+      
+      
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
+
+  <div class="dropdown">
+    <a class="btn btn-secondary dropdown  bg-white border" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="container rounded-circle">
+        <div class="group-menu">
+         <div class="dot"></div>
+         <div class="dot"></div>
+         <div class="dot"></div>
+        </div>
+      </div>
+    </a>
+  </div>        
+                
+        </td> 
+     </tr>
+} 
+
+</thead>
+</table> -->
+
+<h2>List of Bhutanese Employee</h2>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive" data-pattern="priority-columns">
+        <table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
+
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th data-priority="1">User Name</th>
+              <th data-priority="2">CID</th>
+              <th data-priority="3">Email</th>
+              <th data-priority="4">Phone Number</th>
+              <th data-priority="5">Job Designation</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of employeeList; track $index) {
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.fullName}}</td>
+                  <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.userName}}</td>
+                  <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.CID}}</td>
+                  <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.email}}</td>
+                  <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.contact}}</td>
+                  <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.jobDesignation}}</td>
+                
+                  <td class="list-inline-item">
+                    <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                  </td>
+                <li class="list-inline-item"  (click)="onDelete(item.id)">
+                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></button>
+                </li>
+    
+               </tr>
+          } 
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table>
+      </div><!--end of .table-responsive-->
+    </div>
+  </div>
+</div>
+
+
+
+
+  

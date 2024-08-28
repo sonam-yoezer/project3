@@ -55,8 +55,5 @@ submit(): void {
   });
 }
 
-guest():void{
-  this.router.navigate(['/home']);
-}
 
 }
