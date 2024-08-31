@@ -74,7 +74,7 @@
                   <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.contact}}</td>
                   <td scope="col" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "> {{item?.jobDesignation}}</td>
                 
-                  <td class="list-inline-item" *ngIf="isAdmin">
+                  <td class="list-inline-item" (click)="onEdit(item.id)" *ngIf="isAdmin">
                     <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
                   </td>
                 <td class="list-inline-item"  (click)="onDelete(item.id)" *ngIf="isAdmin">

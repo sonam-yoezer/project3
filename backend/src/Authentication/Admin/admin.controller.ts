@@ -58,10 +58,10 @@ async registerAdmin(
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('jwt', {
-      httpOnly: true, // Ensure this matches how the cookie was set
-      secure: process.env.NODE_ENV === 'production', // Make sure this matches the environment
-      sameSite: 'lax', // Adjust based on your needs
-      path: '/', // Ensure this matches the path used when setting the cookie
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'production', 
+      sameSite: 'lax', 
+      path: '/',
     });
 
     return {

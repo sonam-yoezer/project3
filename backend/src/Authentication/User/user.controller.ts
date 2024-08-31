@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from './user.service';
 import { Response } from 'express';
 import * as bcrypt from 'bcrypt';
-
+ 
 
 
 @Controller('users')
@@ -71,10 +71,10 @@ async registerUser(
   @Post('userLogout')
   async logout(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('jwt', {
-      httpOnly: true, // Ensure this matches how the cookie was set
-      secure: process.env.NODE_ENV === 'production', // Make sure this matches the environment
-      sameSite: 'lax', // Adjust based on your needs
-      path: '/', // Ensure this matches the path used when setting the cookie
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', 
+      sameSite: 'lax',
+      path: '/',
     });
 
     return {
@@ -104,14 +104,20 @@ async updateUser(
   @Body('CID') CID?: string,
   @Body('email') email?: string,
   @Body('contact') contact?: string,
-  @Body('jobDesignation') jobDesignation?: string
+  @Body('jobDesignation') jobDesignation?: string,
+  @Body('password') password?: string,
 ) {
   try {
-
     const user = await this.userService.findOne({ id });
 
     if (!user) {
       throw new BadRequestException('User not found');
+    }
+
+    // Hash the password if it is provided
+    let hashedPassword;
+    if (password) {
+      hashedPassword = await bcrypt.hash(password, 3); // Hashing the password
     }
 
     const updateData = {
@@ -120,9 +126,9 @@ async updateUser(
       ...(CID && { CID }),
       ...(email && { email }),
       ...(contact && { contact }),
-      ...(jobDesignation && { jobDesignation })
+      ...(jobDesignation && { jobDesignation }),
+      ...(hashedPassword && { password: hashedPassword }) // Use the hashed password if provided
     };
-
 
     const updatedUser = await this.userService.updateUser(id, updateData);
 

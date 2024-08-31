@@ -9,6 +9,9 @@ import { UserLayoutComponent } from './pages/user-layout/user-layout.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
+import { EditComponent } from './pages/edit/edit.component';
+
+
 
 
 
@@ -25,4 +28,12 @@ export const routes: Routes = [
     {path:'us', component: UserLayoutComponent,},
     {path:'nav', component:NavbarComponent,},
     // { path: '', redirectTo: '/loginGuest', pathMatch: 'full' }
+
+    // {
+    //     path: 'pages/edit/:id',
+    //     loadComponent: () =>
+    //         import('./pages/edit/edit.component').then((x) =>EditComponent),
+    // }
+
+    { path: 'pages/edit/:id', component: EditComponent },
 ];

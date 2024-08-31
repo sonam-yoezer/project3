@@ -7,46 +7,75 @@
           <div class="form-outline mb-4">
             <label class="form-label" for="registerName">Name</label>
             <input type="text" id="registerName" formControlName="fullName" class="form-control" />
+            <div *ngIf="form.get('fullName')?.hasError('required') && form.get('fullName')?.touched" style="color: red;" class="form-text">Name is required</div>
           </div>
 
           <div class="form-outline mb-4">
             <label class="form-label" for="registerUsername">Username</label>
             <input type="text" id="registerUsername" formControlName="userName" class="form-control" />
+            <div *ngIf="form.get('userName')?.hasError('required') && form.get('userName')?.touched" style="color: red;" class="form-text">user Name is required</div>
           </div>
 
           <div class="form-outline mb-4">
             <label class="form-label" for="registerCID">CID</label>
             <input type="text" id="registerCID" formControlName="CID" class="form-control" />
+            <div *ngIf="form.get('CID')?.hasError('pattern') && form.get('CID')?.touched" style="color: red;" class="form-text">Length should be 11</div>
           </div>
 
           <div class="form-outline mb-4">
             <label class="form-label" for="registerEmail">Email</label>
             <input type="email" id="registerEmail" formControlName="email" class="form-control" />
+            <div *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched" style="color: red;">Mail address should be (*****&#64;something.com)</div>
           </div>
 
           <div class="form-outline mb-4">
             <label class="form-label" for="registerContact">Contact</label>
             <input type="text" id="registerContact" formControlName="contact" class="form-control" />
+            <div *ngIf="form.get('contact')?.hasError('pattern') && form.get('contact')?.touched" class="form-text" style="color: red;">Follow the required pattern(+975-********)</div>
           </div>
 
           <div class="form-outline mb-4">
             <label class="form-label" for="registerJobDesignation">Job Designation</label>
             <input type="text" id="registerJobDesignation" formControlName="jobDesignation" class="form-control" />
+            <div *ngIf="form.get('jobDesignation')?.hasError('required') && form.get('jobDesignation')?.touched" style="color: red;" class="form-text">Mention your job</div>
           </div>
 
           <div class="form-outline mb-4">
             <label class="form-label" for="registerPassword">Password</label>
-            <input type="password" id="registerPassword" formControlName="password" class="form-control" />
-          </div>
-
-          <div class="form-outline mb-4">
-            <label class="form-label" for="registerRepeatPassword">Repeat Password</label>
-            <input type="password" id="registerRepeatPassword" formControlName="conformPassword" class="form-control" />
-            <!-- Display error message if passwords do not match -->
-            <div *ngIf="form.errors?.['passwordMismatch']" class="text-danger">
-              Password and Confirm Password do not match.
+            <div class="input-group">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="registerPassword"
+                formControlName="password"
+                class="form-control"
+              />
+              <span class="input-group-text" (click)="togglePasswordVisibility()">
+                <i [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div *ngIf="form.get('password')?.touched" style="color: red;" class="form-text">
+              <div *ngIf="form.get('password')?.hasError('required')">Password is required.</div>
+              <div *ngIf="form.get('password')?.hasError('minlength')">Password must be at least 8 characters long.</div>
+              <div *ngIf="form.get('password')?.hasError('pattern')">Password must contain at least one letter and one number.</div>
             </div>
           </div>
+          
+          <div class="form-outline mb-4">
+            <label class="form-label" for="registerRepeatPassword">Repeat Password</label>
+            <div class="input-group">
+              <input
+                [type]="showRepeatPassword ? 'text' : 'password'"
+                id="registerRepeatPassword"
+                formControlName="conformPassword"
+                class="form-control"
+              />
+              <span class="input-group-text" (click)="toggleRepeatPasswordVisibility()">
+                <i [ngClass]="showRepeatPassword ? 'fa fa-eye-slash' : 'fa fa-eye'" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div *ngIf="form.errors?.['passwordMismatch']" class="text-danger">Password and Confirm Password do not match.</div>
+          </div>
+          
 
           <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>
         </form>

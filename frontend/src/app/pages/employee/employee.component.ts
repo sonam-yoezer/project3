@@ -87,4 +87,8 @@ export class EmployeeComponent implements OnInit{
     }
   }
 
+  onEdit(id: string) {
+    this.router.navigate(['pages', 'edit', id]); // Navigates to 'pages/edit/:id'
+  }
+  
 }
