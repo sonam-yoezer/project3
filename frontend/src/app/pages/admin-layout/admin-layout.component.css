@@ -24,3 +24,31 @@
     cursor: pointer;
 }
 
+.navbar-toggler-icon::before {
+  content: '';
+  display: block;
+  width: 30px; /* Adjust width as needed */
+  height: 3px; /* Thickness of the lines */
+  background-color: white; /* Color of the lines */
+  position: relative;
+  top: 10px; /* Adjust position as needed */
+}
+
+.navbar-toggler-icon::after {
+  content: '';
+  display: block;
+  width: 30px; /* Adjust width as needed */
+  height: 3px; /* Thickness of the lines */
+  background-color: white; /* Color of the lines */
+  position: absolute;
+  top: 15px; /* Adjust position as needed */
+}
+
+.navbar-toggler-icon {
+  background-color: transparent; /* Make sure the background is transparent */
+  border: none; /* Remove any border if present */
+}
+
+.navbar-collapse{
+  background-color: white;
+}
