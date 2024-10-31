@@ -14,24 +14,26 @@ datasource db {
 }
 
 model Admin {
-  id String @id @default(uuid())
+  id       String @id @default(uuid())
   userName String @unique @db.VarChar(150)
-  email String @unique @db.VarChar(170)
+  email    String @unique @db.VarChar(170)
   password String  @db.VarChar(150)
-
+  role     String  @default("Admin") // Add role field with a default value
 
   @@map("admin")
 }
 
 model User {
-  id String @id @default(uuid())
-  userName String @unique @db.VarChar(150)
-  fullName String @db.VarChar(170)
-  CID String @unique @db.VarChar(13)
-  email String @unique @db.VarChar(170)
-  contact String @db.VarChar(50)
+  id             String @id @default(uuid())
+  userName       String @unique @db.VarChar(150)
+  fullName       String @db.VarChar(170)
+  CID            String @unique @db.VarChar(13)
+  email          String @unique @db.VarChar(170)
+  contact        String @db.VarChar(50)
   jobDesignation String @db.VarChar(50)
-  password String @db.VarChar(150)
+  password       String @db.VarChar(150)
+  role           String @default("User") // Add role field with a default value
 
   @@map("user")
 }
+

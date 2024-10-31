@@ -35,3 +35,12 @@
   top: 10px; /* Adjust position as needed */
 }
 
+.profile-initial {
+  background-color: #007bff; /* Default color, change as needed */
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+
+}
+

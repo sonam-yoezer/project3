@@ -1,8 +1,11 @@
-import { BadRequestException, Body, Controller, Delete, Param, Post, Res } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Param, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import { AdminService } from './admin.service';
 import { JwtService } from '@nestjs/jwt';
+import { Role } from 'src/role.enum';
+import { RolesGuard } from 'src/roles.guard';
+import { Roles } from 'src/roles.decorator';
 
 
 @Controller('admin')
@@ -26,34 +29,36 @@ async registerAdmin(
     }
 }
 
+
 @Post('adminLogin')
-  async login(
-    @Body('email') email: string,
-    @Body('password') password: string,
-    @Res({ passthrough: true }) response: Response
-  ) {
-    try {
-      const admin = await this.adminService.findOne({ email });
+async login(
+  @Body('email') email: string,
+  @Body('password') password: string,
+  @Res({ passthrough: true }) response: Response
+) {
+  try {
+    const admin = await this.adminService.findOne({ email });
 
-      if (!admin) {
-        throw new BadRequestException('Invalid credentials');
-      }
-
-      const passwordMatch = await bcrypt.compare(password, admin.password);
-
-      if (!passwordMatch) {
-        throw new BadRequestException('Invalid credentials');
-      }
-
-      const jwt = await this.jwtService.signAsync({ payload: { id: admin.id } });
-
-      response.cookie('jwt', jwt, { httpOnly: true });
-
-      return { message: 'Generated Token' };
-    } catch (error) {
-      throw new BadRequestException(`Failed to login: ${error.message}`);
+    if (!admin) {
+      throw new BadRequestException('Invalid credentials');
     }
+
+    const passwordMatch = await bcrypt.compare(password, admin.password);
+
+    if (!passwordMatch) {
+      throw new BadRequestException('Invalid credentials');
+    }
+
+    const jwt = await this.jwtService.signAsync({ payload: { id: admin.id, role: Role.Admin } });
+
+    response.cookie('jwt', jwt, { httpOnly: true });
+
+    return { message: 'Generated Token' };
+  } catch (error) {
+    throw new BadRequestException(`Failed to login: ${error.message}`);
   }
+}
+
 
   @Post('logout')
   async logout(@Res({ passthrough: true }) response: Response) {
@@ -68,6 +73,7 @@ async registerAdmin(
       message: 'Success',
     };
   }
+
 
 @Delete(':id')
 async remove(@Param('id') id: string) {

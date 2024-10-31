@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
   toggleRepeatPasswordVisibility(): void {
     this.showRepeatPassword = !this.showRepeatPassword;
   }
-
+   
   onSave() {
     if (this.form.valid) {
       this.httpClient.post(`${environment.baseApiUrl}/users/registerUser`, this.form.value).subscribe({

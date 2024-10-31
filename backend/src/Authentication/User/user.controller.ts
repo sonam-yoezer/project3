@@ -1,10 +1,12 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from './user.service';
 import { Response } from 'express';
 import * as bcrypt from 'bcrypt';
- 
-
+import { Role } from 'src/role.enum';
+import { RolesGuard } from 'src/roles.guard';
+import { Roles } from 'src/roles.decorator';
+import { JwtGuard } from '../../jwt.guard';
 
 @Controller('users')
 export class userController {
@@ -13,6 +15,7 @@ export class userController {
     private jwtService:JwtService
 ) {}
 
+@UseGuards(RolesGuard)
 @Post('registerUser')
 async registerUser(
   @Body('userName') userName: string,
@@ -39,48 +42,49 @@ async registerUser(
   }
 }
 
+
 @Post('userLogin')
-  async login(
-    @Body('email') email: string,
-    @Body('password') password: string,
-    @Res({ passthrough: true }) response: Response
-  ) {
-    try {
-      const user = await this.userService.findOne({ email });
+async login(
+  @Body('email') email: string,
+  @Body('password') password: string,
+  @Res({ passthrough: true }) response: Response
+) {
+  try {
+    const user = await this.userService.findOne({ email });
 
-      if (!user) {
-        throw new BadRequestException('Invalid credentials');
-      }
-
-      const passwordMatch = await bcrypt.compare(password, user.password);
-
-      if (!passwordMatch) {
-        throw new BadRequestException('Invalid credentials');
-      }
-
-      const jwt = await this.jwtService.signAsync({ payload: { id: user.id } });
-
-      response.cookie('jwt', jwt, { httpOnly: true });
-
-      return { message: 'Generated Token' };
-    } catch (error) {
-      throw new BadRequestException(`Failed to login: ${error.message}`);
+    if (!user) {
+      throw new BadRequestException('Invalid credentials');
     }
-  }
 
-  @Post('userLogout')
-  async logout(@Res({ passthrough: true }) response: Response) {
-    response.clearCookie('jwt', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'lax',
-      path: '/',
-    });
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
-    return {
-      message: 'Success',
-    };
+    if (!passwordMatch) {
+      throw new BadRequestException('Invalid credentials');
+    }
+
+    const jwt = await this.jwtService.signAsync({ id: user.id, role: Role.User });
+
+    response.cookie('jwt', jwt, { httpOnly: true });
+
+    return { message: 'Login successful', userId: user.id };
+  } catch (error) {
+    throw new BadRequestException(`Failed to login: ${error.message}`);
   }
+}
+
+
+@Post('userLogout')
+async logout(@Res({ passthrough: true }) response: Response) {
+  response.clearCookie('jwt', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+  });
+
+  return { message: 'Success' };
+}
+
 
 @Delete(':id')
 async remove(@Param('id') id: string) {
@@ -95,6 +99,7 @@ async remove(@Param('id') id: string) {
     throw new BadRequestException(`Failed to delete admin: ${error.message}`);
   }
 }
+
 
 @Put(':id')
 async updateUser(
@@ -140,7 +145,9 @@ async updateUser(
 
   // New Endpoint to get a user by ID
   @Get(':id')
-  async getUserById(@Param('id') id: string) {
+  async getUserById(@Param('id') id: string, @Req() request: Request) {
+    console.log('Request headers:', request.headers);
+    console.log('JWT:', request.headers['authorization']);
     try {
       const user = await this.userService.findOne({ id });
 

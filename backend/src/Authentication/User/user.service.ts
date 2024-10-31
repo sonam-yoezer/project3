@@ -47,7 +47,7 @@ export class UserService {
       });
 
       if (!user) {
-        throw new BadRequestException('Admin not found');
+        throw new BadRequestException('User not found');
       }
 
       return user;

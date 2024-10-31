@@ -4,14 +4,14 @@ import { UserLayoutComponent } from '../user-layout/user-layout.component';
 import { AdminLayoutComponent } from '../admin-layout/admin-layout.component';
 import { AuthService } from '../../../auth.service';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-employee',
   standalone: true,
-  imports: [CommonModule, UserLayoutComponent, AdminLayoutComponent, NavbarComponent],
+  imports: [CommonModule, UserLayoutComponent, AdminLayoutComponent, NavbarComponent, HttpClientModule],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.css'
 })

@@ -21,7 +21,7 @@ export class AdminService {
 
       return newAdmin;
     } catch (error) {
-      throw new BadRequestException(`Failed to register user: ${error.message}`);
+      throw new BadRequestException(`Failed to register Admin: ${error.message}`);
     }
   }
 
@@ -37,27 +37,27 @@ export class AdminService {
 
       return admin;
     }catch (error) {
-      throw new BadRequestException(`Failed to find user: ${error.message}`)
+      throw new BadRequestException(`Failed to find Admin: ${error.message}`);
     }
-  }
+  } 
 
 
   async remove(id: string): Promise<Admin> {
     try {
 
-      const user = await this.prismaService.admin.findUnique({
+      const admin = await this.prismaService.admin.findUnique({
         where: { id: id },
       });
 
-      if (!user) {
-        throw new NotFoundException(`User with id ${id} not found`);
+      if (!admin) {
+        throw new NotFoundException(`Admin with id ${id} not found`);
       }
 
       return await this.prismaService.admin.delete({
         where: { id: id },
       });
     } catch (error) {
-      throw new Error(`Failed to delete user: ${error.message}`);
+      throw new Error(`Failed to delete admin: ${error.message}`);
     }
   }
 }

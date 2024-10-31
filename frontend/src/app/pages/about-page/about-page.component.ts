@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { UserLayoutComponent } from '../user-layout/user-layout.component';
 import { AdminLayoutComponent } from '../admin-layout/admin-layout.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-about-page',
   standalone: true,
-  imports: [CommonModule, UserLayoutComponent, AdminLayoutComponent,NavbarComponent],
+  imports: [CommonModule, UserLayoutComponent, AdminLayoutComponent,NavbarComponent, HttpClientModule],
   templateUrl: './about-page.component.html',
   styleUrl: './about-page.component.css'
 })
